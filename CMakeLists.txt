@@ -3,12 +3,27 @@ project(2dgameengine)
 
 set(CMAKE_CXX_STANDARD 17)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${project_SOURCE_DIR}/cmake")
 set(SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libs")
 
-add_executable(2dgameengine src/main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp)
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
 # SDL2
 find_package(SDL2 REQUIRED)
-include_directories(2dgameengine ${SDL2_INCLUDE_DIRS})
-target_link_libraries(2dgameengine ${SDL2_LIBRARIES})
+include_directories(${PROJECT_NAME} ${SDL2_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES})
+
+find_package(SDL2_image REQUIRED)
+include_directories(${PROJECT_NAME} ${SDL2_IMAGE_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME} ${SDL2_IMAGE_LIBRARIES})
+
+find_package(SDL2_ttf REQUIRED)
+include_directories(${PROJECT_NAME} ${SDLTTF_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME} ${SDLTTF_LIBRARY})
+
+find_package(SDL2_mixer REQUIRED)
+include_directories(${PROJECT_NAME} ${SDLMIXER_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME} ${SDLMIXER_LIBRARY})
