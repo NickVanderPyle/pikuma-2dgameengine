@@ -27,3 +27,7 @@ target_link_libraries(${PROJECT_NAME} ${SDLTTF_LIBRARY})
 find_package(SDL2_mixer REQUIRED)
 include_directories(${PROJECT_NAME} ${SDLMIXER_INCLUDE_DIR})
 target_link_libraries(${PROJECT_NAME} ${SDLMIXER_LIBRARY})
+
+find_package(GLM REQUIRED)
+message(STATUS "GLM_INCLUDE_DIRS= ${GLM_INCLUDE_DIRS}")
+include_directories(${GLM_INCLUDE_DIRS})
