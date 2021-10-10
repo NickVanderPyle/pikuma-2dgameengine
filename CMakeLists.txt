@@ -40,3 +40,11 @@ include_directories(${GLM_INCLUDE_DIRS})
 find_package(Lua REQUIRED)
 target_link_libraries(${PROJECT_NAME} ${LUA_LIBRARIES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${LUA_INCLUDE_DIR})
+
+add_custom_target(copy_assets
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/assets/
+        ${CMAKE_BINARY_DIR}/assets/
+        COMMENT "Copying assets..."
+        VERBATIM)
+add_dependencies(${PROJECT_NAME} copy_assets)
