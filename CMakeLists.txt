@@ -7,7 +7,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${project_SOURCE_DIR}/cmake")
 set(SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libs")
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+include_directories(${LIB_DIR})
+add_executable(${PROJECT_NAME} ${SRC_DIR}/main.cpp)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
@@ -29,11 +30,8 @@ include_directories(${PROJECT_NAME} ${SDLMIXER_INCLUDE_DIR})
 target_link_libraries(${PROJECT_NAME} ${SDLMIXER_LIBRARY})
 
 find_package(GLM REQUIRED)
-message(STATUS "GLM_INCLUDE_DIRS= ${GLM_INCLUDE_DIRS}")
 include_directories(${GLM_INCLUDE_DIRS})
 
-set(IMGUI_DIR libs/imgui)
-include_directories(libs)
-file(GLOB IMGUI_SOURCES ${IMGUI_DIR}/*.cpp ${IMGUI_DIR}/*.h )
-add_library(imgui ${IMGUI_SOURCES})
-target_link_libraries(${PROJECT_NAME} imgui)
+find_package(Lua REQUIRED)
+target_link_libraries(${PROJECT_NAME} ${LUA_LIBRARIES})
+target_include_directories(${PROJECT_NAME} PRIVATE ${LUA_INCLUDE_DIR})
