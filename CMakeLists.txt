@@ -8,7 +8,7 @@ set(SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libs")
 
 include_directories(${LIB_DIR})
-add_executable(${PROJECT_NAME} ${SRC_DIR}/main.cpp)
+add_executable(${PROJECT_NAME} ${SRC_DIR}/main.cpp src/Game.cpp src/Game.h)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
