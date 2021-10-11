@@ -5,7 +5,6 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
-#include <vector>
 #include <string>
 
 enum LogType {
@@ -21,7 +20,6 @@ struct LogEntry {
 class Logger
 {
 public:
-	static std::vector<LogEntry> messages;
 	static void Log(const std::string& message);
 	static void Err(const std::string& message);
 };
