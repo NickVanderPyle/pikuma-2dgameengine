@@ -87,14 +87,21 @@ void Game::ProcessInput()
 
 void Game::Setup(){
 	playerPosition = glm::vec2(10.0, 20.0);
-	playerVelocity = glm::vec2(0.5, 0.0);
+	playerVelocity = glm::vec2(100.0, 0.0);
 }
 
 void Game::Update()
 {
+	int timeToWait = MILLISECS_PER_FRAME - (SDL_GetTicks() - millisecsPreviousFrame);
+	if (timeToWait > 0 && timeToWait <= MILLISECS_PER_FRAME){
+		SDL_Delay(timeToWait);
+	}
+	double deltaTime = (SDL_GetTicks() - millisecsPreviousFrame) / 1000.0f;
+	millisecsPreviousFrame = SDL_GetTicks();
+
 	std::cout << "update" << std::endl;
-	playerPosition.x += playerVelocity.x;
-	playerPosition.y += playerVelocity.y;
+	playerPosition.x += playerVelocity.x * deltaTime;
+	playerPosition.y += playerVelocity.y * deltaTime;
 }
 
 void Game::Render()
