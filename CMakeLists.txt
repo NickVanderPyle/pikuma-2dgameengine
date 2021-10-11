@@ -7,8 +7,12 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${project_SOURCE_DIR}/cmake")
 set(SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libs")
 
+file(GLOB_RECURSE APP_HEADERS CONFIGURE_DEPENDS "${SRC_DIR}/*.h")
+file(GLOB_RECURSE APP_CPP_SOURCES CONFIGURE_DEPENDS "${SRC_DIR}/*.hpp")
+file(GLOB_RECURSE APP_SOURCES CONFIGURE_DEPENDS "${SRC_DIR}/*.cpp")
+
+add_executable(${PROJECT_NAME} ${APP_HEADERS} ${APP_CPP_SOURCES} ${APP_SOURCES})
 include_directories(${LIB_DIR})
-add_executable(${PROJECT_NAME} ${SRC_DIR}/main.cpp src/Game/Game.cpp src/Game/Game.h src/Logger/Logger.cpp src/Logger/Logger.h)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
