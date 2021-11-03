@@ -1,27 +1,25 @@
-//
-// Created by Nicholas VanderPyle on 10/10/21.
-//
-
 #ifndef LOGGER_H
 #define LOGGER_H
 
 #include <string>
 
-enum LogType {
+enum LogType
+{
 	LOG_INFO,
 	LOG_WARNING,
 	LOG_ERROR
 };
 
-struct LogEntry {
+struct LogEntry
+{
 	LogType type;
 	std::string message;
 };
 class Logger
 {
 public:
-	static void Log(const std::string& message);
-	static void Err(const std::string& message);
+	static void Log(const std::string &message);
+	static void Err(const std::string &message);
 };
 
 

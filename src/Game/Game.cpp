@@ -1,12 +1,8 @@
 #include "Game.h"
 #include "../Logger/Logger.h"
-#include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <glm/glm.hpp>
-
-glm::vec2 playerPosition;
-glm::vec2 playerVelocity;
 
 Game::Game()
 {
@@ -22,7 +18,7 @@ Game::~Game()
 void Game::Initialize()
 {
 	Logger::Log("initialize");
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		Logger::Err("Error SDL_Init");
 		return;
 	}
@@ -39,13 +35,13 @@ void Game::Initialize()
 		windowWidth,
 		windowHeight,
 		SDL_WINDOW_BORDERLESS);
-	if (!window){
+	if (!window) {
 		Logger::Err("Error SDL_CreateWindow");
 		return;
 	}
 
 	renderer = SDL_CreateRenderer(window, -1, 0);
-	if (!renderer){
+	if (!renderer) {
 		Logger::Err("Error SDL_CreateRenderer");
 		return;
 	}
@@ -61,7 +57,7 @@ void Game::Run()
 
 	Setup();
 
-	while(isRunning) {
+	while (isRunning) {
 		ProcessInput();
 		Update();
 		Render();
@@ -72,13 +68,13 @@ void Game::ProcessInput()
 {
 	Logger::Log("processInput");
 	SDL_Event sdlEvent;
-	while(SDL_PollEvent(&sdlEvent)){
+	while (SDL_PollEvent(&sdlEvent)) {
 		switch (sdlEvent.type) {
 		case SDL_QUIT:
 			isRunning = false;
 			break;
 		case SDL_KEYDOWN:
-			if (sdlEvent.key.keysym.sym == SDLK_ESCAPE){
+			if (sdlEvent.key.keysym.sym == SDLK_ESCAPE) {
 				isRunning = false;
 			}
 			break;
@@ -86,23 +82,28 @@ void Game::ProcessInput()
 	}
 }
 
-void Game::Setup(){
-	playerPosition = glm::vec2(10.0, 20.0);
-	playerVelocity = glm::vec2(100.0, 0.0);
+void Game::Setup()
+{
+	//Entity tank = registry.CreateEntity();
+	//tank.AddComponent<TransferComponent>();
+	//tank.AddComponent<BoxColliderComponent>();
+	//tank.AddComponent<SpriteComponent>("./assets/images/tank.png");
 }
 
 void Game::Update()
 {
 	int timeToWait = MILLISECS_PER_FRAME - (SDL_GetTicks() - millisecsPreviousFrame);
-	if (timeToWait > 0 && timeToWait <= MILLISECS_PER_FRAME){
+	if (timeToWait > 0 && timeToWait <= MILLISECS_PER_FRAME) {
 		SDL_Delay(timeToWait);
 	}
 	double deltaTime = (SDL_GetTicks() - millisecsPreviousFrame) / 1000.0f;
 	millisecsPreviousFrame = SDL_GetTicks();
 
+	//MovementSystem.Update(deltaTime);
+	//CollisionSystem.Update(deltaTime);
+	//DamageSystem.Update(deltaTime);
+
 	Logger::Log("update");
-	playerPosition.x += playerVelocity.x * deltaTime;
-	playerPosition.y += playerVelocity.y * deltaTime;
 }
 
 void Game::Render()
@@ -111,18 +112,7 @@ void Game::Render()
 	SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
 	SDL_RenderClear(renderer);
 
-	//draw a texture
-	SDL_Surface* surface = IMG_Load("./assets/images/tank-tiger-right.png");
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-	SDL_FreeSurface(surface);
-	SDL_Rect dstRect = {
-		static_cast<int>(playerPosition.x),
-		static_cast<int>(playerPosition.y),
-		32,
-		32
-	};
-	SDL_RenderCopy(renderer, texture, NULL, &dstRect);
-	SDL_DestroyTexture(texture);
+	//Eventually render stuff
 
 	SDL_RenderPresent(renderer);
 }
