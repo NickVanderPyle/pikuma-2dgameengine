@@ -1,7 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <memory>
 #include <SDL2/SDL.h>
+#include "../ECS/Registry.h"
 
 const int FPS = 60;
 
@@ -14,6 +16,8 @@ private:
 	int millisecsPreviousFrame = 0;
 	SDL_Window *window;
 	SDL_Renderer *renderer;
+
+    std::unique_ptr<Registry> registry;
 
 public:
 	Game();

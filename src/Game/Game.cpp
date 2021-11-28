@@ -8,6 +8,7 @@ Game::Game()
 {
 	Logger::Log("constructor");
 	isRunning = false;
+    registry = std::make_unique<Registry>();
 }
 
 Game::~Game()
@@ -17,7 +18,6 @@ Game::~Game()
 
 void Game::Initialize()
 {
-	Logger::Log("initialize");
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		Logger::Err("Error SDL_Init");
 		return;
@@ -53,8 +53,6 @@ void Game::Initialize()
 
 void Game::Run()
 {
-	Logger::Log("run");
-
 	Setup();
 
 	while (isRunning) {
@@ -66,7 +64,6 @@ void Game::Run()
 
 void Game::ProcessInput()
 {
-	Logger::Log("processInput");
 	SDL_Event sdlEvent;
 	while (SDL_PollEvent(&sdlEvent)) {
 		switch (sdlEvent.type) {
@@ -84,10 +81,8 @@ void Game::ProcessInput()
 
 void Game::Setup()
 {
-	//Entity tank = registry.CreateEntity();
-	//tank.AddComponent<TransferComponent>();
-	//tank.AddComponent<BoxColliderComponent>();
-	//tank.AddComponent<SpriteComponent>("./assets/images/tank.png");
+	Entity tank = registry->CreateEntity();
+	Entity truck = registry->CreateEntity();
 }
 
 void Game::Update()
@@ -102,13 +97,10 @@ void Game::Update()
 	//MovementSystem.Update(deltaTime);
 	//CollisionSystem.Update(deltaTime);
 	//DamageSystem.Update(deltaTime);
-
-	Logger::Log("update");
 }
 
 void Game::Render()
 {
-	Logger::Log("render");
 	SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
 	SDL_RenderClear(renderer);
 
@@ -119,7 +111,6 @@ void Game::Render()
 
 void Game::Destroy()
 {
-	Logger::Log("destroy");
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();

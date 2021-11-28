@@ -1,6 +1,7 @@
 #ifndef REGISTRY_H
 #define REGISTRY_H
 
+#include <memory>
 #include <set>
 #include <unordered_map>
 #include <typeindex>
@@ -18,12 +19,13 @@ private:
 	std::set<Entity> entitiesToBeAdded;
 	std::set<Entity> entitiesToBeKilled;
 
-	std::vector<IPool *> componentPools;
+	std::vector<std::shared_ptr<Pool<IPool>>> componentPools;
 	std::vector<Signature> entityComponentSignatures;
-	std::unordered_map<std::type_index, System *> systems;
+	std::unordered_map<std::type_index, std::shared_ptr<System>> systems;
 
 public:
-	Registry() = default;
+	Registry();
+    ~Registry();
 
 	Entity CreateEntity();
 	void Update();
@@ -45,7 +47,7 @@ public:
 template<typename TSystem, typename... TArgs>
 void Registry::AddSystem(TArgs &&... args)
 {
-	TSystem *newSystem(new TSystem(std::forward<TArgs>(args)...));
+    std::shared_ptr<TSystem> newSystem = std::make_shared<TSystem>(std::forward<TArgs>(args)...);
 	systems.insert(std::make_pair(typeid(TSystem), newSystem));
 }
 
@@ -80,10 +82,10 @@ void Registry::AddComponent(Entity entity, TArgs &&...args)
 	}
 
 	if (!componentPools[componentId]) {
-		componentPools[componentId] = new Pool<TComponent>();
+        componentPools[componentId] = std::make_shared<Pool<TComponent>>();
 	}
 
-	Pool<TComponent> componentPool = componentPools[componentId];
+    std::shared_ptr<Pool<TComponent>> componentPool = std::static_pointer_cast<Pool<TComponent>>(componentPools[componentId]);
 
 	if (entityId >= componentPool.GetSize()) {
 		componentPool.Resize(numEntities);
