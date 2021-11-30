@@ -11,7 +11,7 @@ file(GLOB_RECURSE APP_HEADERS CONFIGURE_DEPENDS "${SRC_DIR}/*.h")
 file(GLOB_RECURSE APP_CPP_SOURCES CONFIGURE_DEPENDS "${SRC_DIR}/*.hpp")
 file(GLOB_RECURSE APP_SOURCES CONFIGURE_DEPENDS "${SRC_DIR}/*.cpp")
 
-add_executable(${PROJECT_NAME} ${APP_HEADERS} ${APP_CPP_SOURCES} ${APP_SOURCES} src/Components/TransformComponent.h src/Systems/MovementSystem.h src/ECS/Signature.h src/ECS/IComponent.h src/ECS/Component.h src/ECS/Entity.cpp src/ECS/Entity.h src/ECS/System.cpp src/ECS/System.h src/ECS/IPool.h src/ECS/Pool.h src/ECS/Component.cpp src/ECS/Registry.cpp src/ECS/Registry.h)
+add_executable(${PROJECT_NAME} ${APP_HEADERS} ${APP_CPP_SOURCES} ${APP_SOURCES} src/Components/TransformComponent.h src/Systems/MovementSystem.h src/ECS/Signature.h src/ECS/IComponent.h src/ECS/Component.h src/ECS/System.cpp src/ECS/System.h src/ECS/IPool.h src/ECS/Pool.h src/ECS/Component.cpp src/ECS/EntityAndRegistry.cpp src/ECS/EntityAndRegistry.h src/Components/RigidBodyComponent.h)
 include_directories(${LIB_DIR})
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")

@@ -1,4 +1,5 @@
 #include "System.h"
+#include "EntityAndRegistry.h"
 
 void System::AddEntityToSystem(Entity entity)
 {

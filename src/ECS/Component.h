@@ -6,11 +6,12 @@
 template<typename TComponent>
 class Component: IComponent
 {
-	static int GetId()
-	{
-		static auto id = nextId++;
-		return id;
-	}
+public:
+    static int GetId()
+    {
+        static auto id = nextId++;
+        return id;
+    }
 };
 
 #endif //COMPONENT_H

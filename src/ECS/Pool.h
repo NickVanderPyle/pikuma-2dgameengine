@@ -16,7 +16,7 @@ public:
 		data.reserve(size);
 	}
 
-	virtual ~Pool() = default;
+	virtual ~Pool() {};
 
 	bool IsEmpty() const
 	{ return data.empty(); }

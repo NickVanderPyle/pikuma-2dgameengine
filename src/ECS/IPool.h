@@ -3,6 +3,7 @@
 
 class IPool
 {
+public:
 	virtual ~IPool()
 	{};
 };

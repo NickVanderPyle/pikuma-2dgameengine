@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <SDL2/SDL.h>
-#include "../ECS/Registry.h"
+#include "../ECS/EntityAndRegistry.h"
 
 const int FPS = 60;
 

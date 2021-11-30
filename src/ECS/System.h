@@ -2,9 +2,10 @@
 #define SYSTEM_H
 
 #include <vector>
-#include "Entity.h"
 #include "Signature.h"
 #include "Component.h"
+
+class Entity;
 
 class System
 {

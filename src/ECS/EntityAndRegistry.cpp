@@ -1,5 +1,10 @@
-#include "Registry.h"
+#include "EntityAndRegistry.h"
 #include "../Logger/Logger.h"
+
+int Entity::GetId() const
+{
+    return id;
+}
 
 Registry::Registry() {
     Logger::Log("Registry constructor called.");
@@ -29,6 +34,7 @@ Entity Registry::CreateEntity()
 {
 	int entityId = numEntities++;
 	Entity entity(entityId);
+    entity.registry = this;
 	entitiesToBeAdded.insert(entity);
 
 	if (entityId >= entityComponentSignatures.size()) {
