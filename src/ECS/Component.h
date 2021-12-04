@@ -4,11 +4,9 @@
 #include "IComponent.h"
 
 template<typename TComponent>
-class Component: IComponent
-{
+class Component : IComponent {
 public:
-    static int GetId()
-    {
+    static int GetId() {
         static auto id = nextId++;
         return id;
     }

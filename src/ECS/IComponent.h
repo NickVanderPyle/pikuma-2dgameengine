@@ -1,10 +1,9 @@
 #ifndef ICOMPONENT_H
 #define ICOMPONENT_H
 
-struct IComponent
-{
+struct IComponent {
 protected:
-	static int nextId;
+    static int nextId;
 };
 
 #endif //ICOMPONENT_H

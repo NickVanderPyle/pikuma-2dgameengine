@@ -7,29 +7,32 @@
 
 class Entity;
 
-class System
-{
+class System {
 private:
-	Signature componentSignature;
-	std::vector<Entity> entities;
+    Signature componentSignature;
+    std::vector<Entity> entities;
 
 public:
-	System() = default;
-	~System() = default;
+    System() = default;
 
-	void AddEntityToSystem(Entity entity);
-	void RemoveEntityFromSystem(Entity entity);
-	std::vector<Entity> GetSystemEntities() const;
-	const Signature &GetComponentSignature() const;
+    ~System() = default;
 
-	template<typename TComponent> void RequireComponent();
+    void AddEntityToSystem(Entity entity);
+
+    void RemoveEntityFromSystem(Entity entity);
+
+    std::vector<Entity> GetSystemEntities() const;
+
+    const Signature &GetComponentSignature() const;
+
+    template<typename TComponent>
+    void RequireComponent();
 };
 
 template<typename TComponent>
-void System::RequireComponent()
-{
-	const auto componentId = Component<TComponent>::GetId();
-	componentSignature.set(componentId);
+void System::RequireComponent() {
+    const auto componentId = Component<TComponent>::GetId();
+    componentSignature.set(componentId);
 }
 
 

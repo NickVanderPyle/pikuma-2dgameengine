@@ -1,11 +1,9 @@
 #ifndef IPOOL_H
 #define IPOOL_H
 
-class IPool
-{
+class IPool {
 public:
-	virtual ~IPool()
-	{};
+    virtual ~IPool() {};
 };
 
 #endif //IPOOL_H
