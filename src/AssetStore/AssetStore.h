@@ -1,10 +1,4 @@
-//
-// Created by Nick VanderPyle on 12/4/21.
-//
-
-#ifndef INC_2DGAMEENGINE_ASSETSTORE_H
-#define INC_2DGAMEENGINE_ASSETSTORE_H
-
+#pragma once
 
 #include <map>
 #include <SDL_render.h>
@@ -28,6 +22,3 @@ public:
 
 
 };
-
-
-#endif //INC_2DGAMEENGINE_ASSETSTORE_H

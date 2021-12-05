@@ -1,5 +1,4 @@
-#ifndef MOVEMENTSYSTEM_H
-#define MOVEMENTSYSTEM_H
+#pragma once
 
 #include "../ECS/EntityAndRegistry.h"
 #include "../ECS/System.h"
@@ -23,5 +22,3 @@ public:
         }
     }
 };
-
-#endif //MOVEMENTSYSTEM_H

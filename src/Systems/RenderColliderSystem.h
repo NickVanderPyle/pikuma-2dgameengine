@@ -1,5 +1,4 @@
-#ifndef INC_2DGAMEENGINE_RENDERCOLLIDERSYSTEM_H
-#define INC_2DGAMEENGINE_RENDERCOLLIDERSYSTEM_H
+#pragma once
 
 #include <SDL2/SDL.h>
 #include "../ECS/EntityAndRegistry.h"
@@ -29,5 +28,3 @@ public:
         }
     }
 };
-
-#endif //INC_2DGAMEENGINE_RENDERCOLLIDERSYSTEM_H

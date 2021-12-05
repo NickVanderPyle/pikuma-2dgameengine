@@ -1,5 +1,4 @@
-#ifndef LOGGER_H
-#define LOGGER_H
+#pragma once
 
 #include <string>
 
@@ -20,6 +19,3 @@ public:
 
     static void Err(const std::string &message);
 };
-
-
-#endif //LOGGER_H

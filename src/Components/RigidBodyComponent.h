@@ -1,9 +1,4 @@
-//
-// Created by Nick VanderPyle on 11/28/21.
-//
-
-#ifndef INC_2DGAMEENGINE_RIGIDBODYCOMPONENT_H
-#define INC_2DGAMEENGINE_RIGIDBODYCOMPONENT_H
+#pragma once
 
 #include <glm/glm.hpp>
 
@@ -14,5 +9,3 @@ struct RigidBodyComponent {
         this->velocity = velocity;
     }
 };
-
-#endif //INC_2DGAMEENGINE_RIGIDBODYCOMPONENT_H

@@ -1,9 +1,6 @@
-#ifndef IPOOL_H
-#define IPOOL_H
+#pragma once
 
 class IPool {
 public:
     virtual ~IPool() {};
 };
-
-#endif //IPOOL_H

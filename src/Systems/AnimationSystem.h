@@ -1,9 +1,4 @@
-//
-// Created by Nick VanderPyle on 12/4/21.
-//
-
-#ifndef INC_2DGAMEENGINE_ANIMATIONSYSTEM_H
-#define INC_2DGAMEENGINE_ANIMATIONSYSTEM_H
+#pragma once
 
 #include "../ECS/EntityAndRegistry.h"
 #include "../ECS/System.h"
@@ -28,5 +23,3 @@ public:
         }
     }
 };
-
-#endif //INC_2DGAMEENGINE_ANIMATIONSYSTEM_H

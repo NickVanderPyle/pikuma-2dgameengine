@@ -1,9 +1,6 @@
-#ifndef ICOMPONENT_H
-#define ICOMPONENT_H
+#pragma once
 
 struct IComponent {
 protected:
     static int nextId;
 };
-
-#endif //ICOMPONENT_H

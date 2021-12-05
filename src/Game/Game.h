@@ -1,5 +1,4 @@
-#ifndef GAME_H
-#define GAME_H
+#pragma once
 
 #include <memory>
 #include <SDL2/SDL.h>
@@ -45,6 +44,3 @@ public:
 
     void LoadLevel(int level);
 };
-
-
-#endif //GAME_H

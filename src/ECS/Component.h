@@ -1,5 +1,4 @@
-#ifndef COMPONENT_H
-#define COMPONENT_H
+#pragma once
 
 #include "IComponent.h"
 
@@ -11,5 +10,3 @@ public:
         return id;
     }
 };
-
-#endif //COMPONENT_H

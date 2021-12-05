@@ -1,5 +1,4 @@
-#ifndef SYSTEM_H
-#define SYSTEM_H
+#pragma once
 
 #include <vector>
 #include "Signature.h"
@@ -34,6 +33,3 @@ void System::RequireComponent() {
     const auto componentId = Component<TComponent>::GetId();
     componentSignature.set(componentId);
 }
-
-
-#endif //SYSTEM_H

@@ -1,5 +1,4 @@
-#ifndef INC_2DGAMEENGINE_SPRITECOMPONENT_H
-#define INC_2DGAMEENGINE_SPRITECOMPONENT_H
+#pragma once
 
 #include <SDL2/SDL.h>
 
@@ -19,6 +18,3 @@ struct SpriteComponent {
         this->srcRect = {srcRectX, srcRectY, width, height};
     }
 };
-
-
-#endif //INC_2DGAMEENGINE_SPRITECOMPONENT_H

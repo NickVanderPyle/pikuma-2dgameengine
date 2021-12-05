@@ -1,5 +1,4 @@
-#ifndef INC_2DGAMEENGINE_COLLISIONSYSTEM_H
-#define INC_2DGAMEENGINE_COLLISIONSYSTEM_H
+#pragma once
 
 #include "../ECS/EntityAndRegistry.h"
 #include "../ECS/System.h"
@@ -43,8 +42,8 @@ public:
                 if (collisionHappened) {
                     Logger::Log("Entity " + std::to_string(a.GetId()) + " is colliding with entity " +
                                 std::to_string(b.GetId()));
-                    a.Kill();
-                    b.Kill();
+
+                    // TODO: Emit an event
                 }
             }
         }
@@ -59,5 +58,3 @@ public:
         );
     }
 };
-
-#endif //INC_2DGAMEENGINE_COLLISIONSYSTEM_H

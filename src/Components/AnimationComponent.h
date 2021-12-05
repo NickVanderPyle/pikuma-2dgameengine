@@ -1,5 +1,4 @@
-#ifndef INC_2DGAMEENGINE_ANIMATIONCOMPONENT_H
-#define INC_2DGAMEENGINE_ANIMATIONCOMPONENT_H
+#pragma once
 
 #include <SDL2/SDL.h>
 
@@ -18,5 +17,3 @@ struct AnimationComponent {
         this->startTime = SDL_GetTicks();
     }
 };
-
-#endif //INC_2DGAMEENGINE_ANIMATIONCOMPONENT_H

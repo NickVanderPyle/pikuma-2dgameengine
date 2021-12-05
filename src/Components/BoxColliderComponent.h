@@ -1,5 +1,4 @@
-#ifndef INC_2DGAMEENGINE_BOXCOLLIDERCOMPONENT_H
-#define INC_2DGAMEENGINE_BOXCOLLIDERCOMPONENT_H
+#pragma once
 
 #include <glm/vec2.hpp>
 
@@ -15,5 +14,3 @@ struct BoxColliderComponent {
         this->offset = offset;
     }
 };
-
-#endif //INC_2DGAMEENGINE_BOXCOLLIDERCOMPONENT_H

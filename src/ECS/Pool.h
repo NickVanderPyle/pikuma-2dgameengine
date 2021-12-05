@@ -1,5 +1,4 @@
-#ifndef POOL_H
-#define POOL_H
+#pragma once
 
 #include <vector>
 #include "IPool.h"
@@ -32,5 +31,3 @@ public:
 
     T &operator[](unsigned int idx) { return data[idx]; }
 };
-
-#endif //POOL_H

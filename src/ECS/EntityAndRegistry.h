@@ -1,5 +1,4 @@
-#ifndef REGISTRY_H
-#define REGISTRY_H
+#pragma once
 
 #include <memory>
 #include <set>
@@ -199,6 +198,3 @@ TComponent &Registry::GetComponent(Entity entity) {
     auto componentPool = std::static_pointer_cast<Pool<TComponent>>(componentPools[componentId]);
     return componentPool->Get(entityId);
 }
-
-
-#endif //REGISTRY_H

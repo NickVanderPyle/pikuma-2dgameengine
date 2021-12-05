@@ -1,7 +1,3 @@
-//
-// Created by Nick VanderPyle on 12/4/21.
-//
-
 #include <SDL_image.h>
 #include "AssetStore.h"
 #include "../Logger/Logger.h"
