@@ -16,17 +16,20 @@
 #include "../Components/BoxColliderComponent.h"
 #include "../Systems/CollisionSystem.h"
 #include "../Systems/RenderColliderSystem.h"
+#include "../Systems/DamageSystem.h"
+#include "../Systems/KeyboardControlSystem.h"
 
 Game::Game() {
-    Logger::Log("constructor");
+    Logger::Log("Game constructor");
     isRunning = false;
     isDebugging = false;
     registry = std::make_unique<Registry>();
     assetStore = std::make_unique<AssetStore>();
+    eventBus = std::make_unique<EventBus>();
 }
 
 Game::~Game() {
-    Logger::Log("destructor");
+    Logger::Log("Game destructor");
 }
 
 void Game::Initialize() {
@@ -87,6 +90,7 @@ void Game::ProcessInput() {
                 if (sdlEvent.key.keysym.sym == SDLK_d) {
                     isDebugging = !isDebugging;
                 }
+                eventBus->EmitEvent<KeyPressedEvent>(sdlEvent.key.keysym.sym);
                 break;
         }
     }
@@ -98,6 +102,8 @@ void Game::LoadLevel(int level) {
     registry->AddSystem<AnimationSystem>();
     registry->AddSystem<CollisionSystem>();
     registry->AddSystem<RenderColliderSystem>();
+    registry->AddSystem<DamageSystem>();
+    registry->AddSystem<KeyboardControlSystem>();
 
     assetStore->AddTexture(renderer, "radar-image", "./assets/images/radar.png");
     assetStore->AddTexture(renderer, "chopper-image", "./assets/images/chopper.png");
@@ -167,11 +173,16 @@ void Game::Update() {
     double deltaTime = (SDL_GetTicks() - millisecsPreviousFrame) / 1000.0f;
     millisecsPreviousFrame = SDL_GetTicks();
 
+    eventBus->Reset();
+    registry->GetSystem<DamageSystem>().SubscribeToEvents(eventBus);
+    registry->GetSystem<KeyboardControlSystem>().SubscribeToEvents(eventBus);
+
     registry->Update();
 
     registry->GetSystem<MovementSystem>().Update(deltaTime);
     registry->GetSystem<AnimationSystem>().Update(deltaTime);
-    registry->GetSystem<CollisionSystem>().Update(deltaTime);
+    registry->GetSystem<CollisionSystem>().Update(eventBus);
+    registry->GetSystem<DamageSystem>().Update();
 }
 
 void Game::Render() {
