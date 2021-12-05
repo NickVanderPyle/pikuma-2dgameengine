@@ -41,6 +41,8 @@ public:
 
     int windowWidth;
     int windowHeight;
+
+    void LoadLevel(int level);
 };
 
 

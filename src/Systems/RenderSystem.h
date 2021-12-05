@@ -18,9 +18,28 @@ public:
     }
 
     void Update(SDL_Renderer *renderer, std::unique_ptr<AssetStore> &assetStore) {
+
+        struct RenderableEntity {
+            TransformComponent transformComponent;
+            SpriteComponent spriteComponent;
+        };
+        std::vector<RenderableEntity> renderableEntities;
         for (auto entity: GetSystemEntities()) {
-            const auto transform = entity.getComponent<TransformComponent>();
-            const auto sprite = entity.getComponent<SpriteComponent>();
+            RenderableEntity renderableEntity;
+            renderableEntity.spriteComponent = entity.getComponent<SpriteComponent>();
+            renderableEntity.transformComponent = entity.getComponent<TransformComponent>();
+            renderableEntities.emplace_back(renderableEntity);
+        }
+        std::sort(
+                renderableEntities.begin(),
+                renderableEntities.end(),
+                [](const RenderableEntity &a, const RenderableEntity b) {
+                    return a.spriteComponent.zIndex < b.spriteComponent.zIndex;
+                });
+
+        for (auto renderableEntity: renderableEntities) {
+            const auto transform = renderableEntity.transformComponent;
+            const auto sprite = renderableEntity.spriteComponent;
 
             SDL_Rect srcRect = sprite.srcRect;
 
