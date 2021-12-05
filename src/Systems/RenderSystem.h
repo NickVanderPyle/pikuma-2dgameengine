@@ -17,7 +17,7 @@ public:
         RequireComponent<SpriteComponent>();
     }
 
-    void Update(SDL_Renderer *renderer, std::unique_ptr<AssetStore>& assetStore) {
+    void Update(SDL_Renderer *renderer, std::unique_ptr<AssetStore> &assetStore) {
         for (auto entity: GetSystemEntities()) {
             const auto transform = entity.getComponent<TransformComponent>();
             const auto sprite = entity.getComponent<SpriteComponent>();
@@ -39,7 +39,7 @@ public:
                     transform.rotation,
                     NULL,
                     SDL_FLIP_NONE
-                    );
+            );
         }
     }
 };
