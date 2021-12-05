@@ -13,10 +13,14 @@
 #include "../AssetStore/AssetStore.h"
 #include "../Components/AnimationComponent.h"
 #include "../Systems/AnimationSystem.h"
+#include "../Components/BoxColliderComponent.h"
+#include "../Systems/CollisionSystem.h"
+#include "../Systems/RenderColliderSystem.h"
 
 Game::Game() {
     Logger::Log("constructor");
     isRunning = false;
+    isDebugging = false;
     registry = std::make_unique<Registry>();
     assetStore = std::make_unique<AssetStore>();
 }
@@ -80,6 +84,9 @@ void Game::ProcessInput() {
                 if (sdlEvent.key.keysym.sym == SDLK_ESCAPE) {
                     isRunning = false;
                 }
+                if (sdlEvent.key.keysym.sym == SDLK_d) {
+                    isDebugging = !isDebugging;
+                }
                 break;
         }
     }
@@ -89,6 +96,8 @@ void Game::LoadLevel(int level) {
     registry->AddSystem<MovementSystem>();
     registry->AddSystem<RenderSystem>();
     registry->AddSystem<AnimationSystem>();
+    registry->AddSystem<CollisionSystem>();
+    registry->AddSystem<RenderColliderSystem>();
 
     assetStore->AddTexture(renderer, "radar-image", "./assets/images/radar.png");
     assetStore->AddTexture(renderer, "chopper-image", "./assets/images/chopper.png");
@@ -134,14 +143,16 @@ void Game::LoadLevel(int level) {
     radar.addComponent<AnimationComponent>(8, 5, true);
 
     Entity tank = registry->CreateEntity();
-    tank.addComponent<TransformComponent>(glm::vec2(10.0, 10.0), glm::vec2(1.0, 1.0), 0.0);
-    tank.addComponent<RigidBodyComponent>(glm::vec2(30.0, 0.0));
+    tank.addComponent<TransformComponent>(glm::vec2(200.0, 10.0), glm::vec2(1.0, 1.0), 0.0);
+    tank.addComponent<RigidBodyComponent>(glm::vec2(-30.0, 0.0));
     tank.addComponent<SpriteComponent>("tank-image", 32, 32, 1);
+    tank.addComponent<BoxColliderComponent>(32, 32, glm::vec2(0, 0));
 
     Entity trunk = registry->CreateEntity();
-    trunk.addComponent<TransformComponent>(glm::vec2(10.0, 50.0), glm::vec2(1.0, 1.0), 0.0);
+    trunk.addComponent<TransformComponent>(glm::vec2(10.0, 10.0), glm::vec2(1.0, 1.0), 0.0);
     trunk.addComponent<RigidBodyComponent>(glm::vec2(20.0, 0.0));
     trunk.addComponent<SpriteComponent>("truck-image", 32, 32, 2);
+    trunk.addComponent<BoxColliderComponent>(32, 32, glm::vec2(0, 0));
 }
 
 void Game::Setup() {
@@ -160,6 +171,7 @@ void Game::Update() {
 
     registry->GetSystem<MovementSystem>().Update(deltaTime);
     registry->GetSystem<AnimationSystem>().Update(deltaTime);
+    registry->GetSystem<CollisionSystem>().Update(deltaTime);
 }
 
 void Game::Render() {
@@ -167,6 +179,9 @@ void Game::Render() {
     SDL_RenderClear(renderer);
 
     registry->GetSystem<RenderSystem>().Update(renderer, assetStore);
+    if (isDebugging) {
+        registry->GetSystem<RenderColliderSystem>().Update(renderer);
+    }
 
     SDL_RenderPresent(renderer);
 }

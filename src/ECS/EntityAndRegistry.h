@@ -5,6 +5,7 @@
 #include <set>
 #include <unordered_map>
 #include <typeindex>
+#include <deque>
 #include "IPool.h"
 #include "Pool.h"
 #include "Signature.h"
@@ -32,6 +33,8 @@ public:
 
     bool operator<(const Entity &other) const { return id < other.id; }
 
+    void Kill();
+
     template<typename TComponent, typename ...TArgs>
     void addComponent(TArgs &&...args);
 
@@ -58,6 +61,8 @@ private:
     std::vector<Signature> entityComponentSignatures;
     std::unordered_map<std::type_index, std::shared_ptr<System>> systems;
 
+    std::deque<int> freeIds;
+
 public:
     Registry();
 
@@ -65,9 +70,9 @@ public:
 
     Entity CreateEntity();
 
-    void Update();
+    void KillEntity(Entity entity);
 
-    void AddEntityToSystem(Entity entity);
+    void Update();
 
     template<typename TComponent, typename  ...TArgs>
     void AddComponent(Entity entity, TArgs &&...args);
@@ -94,6 +99,8 @@ public:
     TSystem &GetSystem() const;
 
     void AddEntityToSystems(Entity entity);
+
+    void RemoveEntityFromSystems(Entity entity);
 };
 
 
