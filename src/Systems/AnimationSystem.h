@@ -12,7 +12,7 @@ public:
         RequireComponent<SpriteComponent>();
     }
 
-    void Update(double deltaTime) {
+    void Update() {
         for (auto entity: GetSystemEntities()) {
             auto &animation = entity.getComponent<AnimationComponent>();
             auto &sprite = entity.getComponent<SpriteComponent>();
