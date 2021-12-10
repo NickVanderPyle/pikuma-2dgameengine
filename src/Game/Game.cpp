@@ -148,6 +148,7 @@ void Game::LoadLevel(int level) {
             mapFile.ignore();
 
             Entity tile = registry->CreateEntity();
+            tile.Group("tiles");
             tile.addComponent<TransformComponent>(
                     glm::vec2(x * (tileScale * tileSize), y * (tileScale * tileSize)),
                     glm::vec2(tileScale, tileScale),
@@ -160,6 +161,7 @@ void Game::LoadLevel(int level) {
     mapHeight = mapNumRows * tileSize * tileScale;
 
     Entity chopper = registry->CreateEntity();
+    chopper.Tag("player");
     chopper.addComponent<TransformComponent>(glm::vec2(10.0, 100.0), glm::vec2(1.0, 1.0), 0.0);
     chopper.addComponent<RigidBodyComponent>(glm::vec2(0.0, 0.0));
     chopper.addComponent<SpriteComponent>("chopper-image", 32, 32, 1);
@@ -177,6 +179,7 @@ void Game::LoadLevel(int level) {
     radar.addComponent<AnimationComponent>(8, 5, true);
 
     Entity tank = registry->CreateEntity();
+    chopper.Group("enemies");
     tank.addComponent<TransformComponent>(glm::vec2(500.0, 10.0), glm::vec2(1.0, 1.0), 0.0);
     tank.addComponent<RigidBodyComponent>(glm::vec2(0.0, 0.0));
     tank.addComponent<SpriteComponent>("tank-image", 32, 32, 1);
@@ -185,6 +188,7 @@ void Game::LoadLevel(int level) {
     tank.addComponent<HealthComponent>(100);
 
     Entity truck = registry->CreateEntity();
+    chopper.Group("enemies");
     truck.addComponent<TransformComponent>(glm::vec2(10.0, 10.0), glm::vec2(1.0, 1.0), 0.0);
     truck.addComponent<RigidBodyComponent>(glm::vec2(0.0, 0.0));
     truck.addComponent<SpriteComponent>("truck-image", 32, 32, 2);

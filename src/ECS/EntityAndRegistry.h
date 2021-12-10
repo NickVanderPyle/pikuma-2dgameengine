@@ -22,6 +22,14 @@ public:
 
     int GetId() const;
 
+    void Tag(const std::string &tag);
+
+    bool HasTag(const std::string &tag) const;
+
+    void Group(const std::string &group);
+
+    bool BelongsToGroup(const std::string &group) const;
+
     Entity &operator=(const Entity &other) = default;
 
     bool operator==(const Entity &other) const { return id == other.id; }
@@ -55,6 +63,11 @@ private:
 
     std::set<Entity> entitiesToBeAdded;
     std::set<Entity> entitiesToBeKilled;
+
+    std::unordered_map<std::string, Entity> entityPerTag;
+    std::unordered_map<int, std::string> tagPerEntity;
+    std::unordered_map<std::string, std::set<Entity>> entitiesPerGroup;
+    std::unordered_map<int, std::string> groupPerEntity;
 
     std::vector<std::shared_ptr<IPool>> componentPools;
     std::vector<Signature> entityComponentSignatures;
@@ -100,6 +113,24 @@ public:
     void AddEntityToSystems(Entity entity);
 
     void RemoveEntityFromSystems(Entity entity);
+
+    // Tag mgmt
+    void TagEntity(Entity entity, const std::string &tag);
+
+    bool EntityHasTag(Entity entity, const std::string &tag) const;
+
+    Entity GetEntityByTag(const std::string &tag) const;
+
+    void RemoveEntityTag(Entity entity);
+
+    // group mgmt
+    void GroupEntity(Entity entity, const std::string &group);
+
+    bool EntityBelongsToGroup(Entity entity, const std::string &group) const;
+
+    std::vector<Entity> GetEntitiesByGroup(const std::string &group) const;
+
+    void RemoveEntityGroup(Entity entity);
 };
 
 
