@@ -27,6 +27,7 @@
 #include "../Systems/ProjectileLifecycleSystem.h"
 #include "../Components/TextLabelComponent.h"
 #include "../Systems/RenderTextSystem.h"
+#include "../Systems/RenderHealthBarSystem.h"
 
 int Game::windowWidth;
 int Game::windowHeight;
@@ -132,6 +133,7 @@ void Game::LoadLevel(int level) {
     registry->AddSystem<ProjectileEmitSystem>();
     registry->AddSystem<ProjectileLifecycleSystem>();
     registry->AddSystem<RenderTextSystem>();
+    registry->AddSystem<RenderHealthBarSystem>();
 
     assetStore->AddTexture(renderer, "radar-image", "./assets/images/radar.png");
     assetStore->AddTexture(renderer, "chopper-image", "./assets/images/chopper-spritesheet.png");
@@ -139,9 +141,10 @@ void Game::LoadLevel(int level) {
     assetStore->AddTexture(renderer, "truck-image", "./assets/images/truck-ford-right.png");
     assetStore->AddTexture(renderer, "tilemap-image", "./assets/tilemaps/jungle.png");
     assetStore->AddTexture(renderer, "bullet-image", "./assets/images/bullet.png");
-    assetStore->AddFont("charriot-font", "./assets/fonts/charriot.ttf", 20);
-    assetStore->AddFont("arial-font", "./assets/fonts/arial.ttf", 20);
-    assetStore->AddFont("pico8-font", "./assets/fonts/pico8.ttf", 20);
+    assetStore->AddFont("charriot-font-20", "./assets/fonts/charriot.ttf", 20);
+    //assetStore->AddFont("arial-font", "./assets/fonts/arial.ttf", 20);
+    assetStore->AddFont("pico8-font-5", "./assets/fonts/pico8.ttf", 5);
+    assetStore->AddFont("pico8-font-10", "./assets/fonts/pico8.ttf", 10);
 
     // Load the tilemap
     int tileSize = 32;
@@ -212,7 +215,8 @@ void Game::LoadLevel(int level) {
 
     Entity label = registry->CreateEntity();
     SDL_Color green = {0, 255, 0};
-    label.addComponent<TextLabelComponent>(glm::vec2(windowWidth / 2 - 40, 10), "Chopper 1.0", "charriot-font", green,
+    label.addComponent<TextLabelComponent>(glm::vec2(windowWidth / 2 - 40, 10), "Chopper 1.0", "charriot-font-20",
+                                           green,
                                            true);
 }
 
@@ -249,6 +253,7 @@ void Game::Render() {
 
     registry->GetSystem<RenderSystem>().Update(renderer, assetStore, camera);
     registry->GetSystem<RenderTextSystem>().Update(renderer, assetStore, camera);
+    registry->GetSystem<RenderHealthBarSystem>().Update(renderer, assetStore, camera);
     if (isDebugging) {
         registry->GetSystem<RenderColliderSystem>().Update(renderer, camera);
     }
