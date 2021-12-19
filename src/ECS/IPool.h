@@ -2,5 +2,7 @@
 
 class IPool {
 public:
-    virtual ~IPool() {};
+    virtual ~IPool() = default;
+
+    virtual void RemoveEntityFromPool(int entityId) = 0;
 };

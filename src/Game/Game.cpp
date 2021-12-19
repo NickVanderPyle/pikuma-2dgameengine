@@ -78,7 +78,7 @@ void Game::Initialize() {
     camera.w = windowWidth;
     camera.h = windowHeight;
 
-    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+    //SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
     isRunning = true;
 }
@@ -166,11 +166,12 @@ void Game::LoadLevel(int level) {
     chopper.addComponent<RigidBodyComponent>(glm::vec2(0.0, 0.0));
     chopper.addComponent<SpriteComponent>("chopper-image", 32, 32, 1);
     chopper.addComponent<AnimationComponent>(2, 15, true);
-    chopper.addComponent<ProjectileEmitterComponent>(glm::vec2(150.0, 150.0), 0, 3000, 0, true);
+    chopper.addComponent<ProjectileEmitterComponent>(glm::vec2(150.0, 150.0), 0, 10000, 10, true);
     chopper.addComponent<KeyboardControlledComponent>(glm::vec2(0, -80), glm::vec2(80, 0), glm::vec2(0, 80),
                                                       glm::vec2(-80, 0));
     chopper.addComponent<CameraFollowComponent>();
     chopper.addComponent<HealthComponent>(100);
+    chopper.addComponent<BoxColliderComponent>(32, 32, glm::vec2(0, 0));
 
     Entity radar = registry->CreateEntity();
     radar.addComponent<TransformComponent>(glm::vec2(windowWidth - 74, 10), glm::vec2(1.0, 1.0), 0.0);
@@ -179,21 +180,21 @@ void Game::LoadLevel(int level) {
     radar.addComponent<AnimationComponent>(8, 5, true);
 
     Entity tank = registry->CreateEntity();
-    chopper.Group("enemies");
+    tank.Group("enemies");
     tank.addComponent<TransformComponent>(glm::vec2(500.0, 10.0), glm::vec2(1.0, 1.0), 0.0);
     tank.addComponent<RigidBodyComponent>(glm::vec2(0.0, 0.0));
     tank.addComponent<SpriteComponent>("tank-image", 32, 32, 1);
     tank.addComponent<BoxColliderComponent>(32, 32, glm::vec2(0, 0));
-    tank.addComponent<ProjectileEmitterComponent>(glm::vec2(100.0, 0.0), 5000, 3000, 0, false);
+    tank.addComponent<ProjectileEmitterComponent>(glm::vec2(100.0, 0.0), 5000, 3000, 10, false);
     tank.addComponent<HealthComponent>(100);
 
     Entity truck = registry->CreateEntity();
-    chopper.Group("enemies");
+    truck.Group("enemies");
     truck.addComponent<TransformComponent>(glm::vec2(10.0, 10.0), glm::vec2(1.0, 1.0), 0.0);
     truck.addComponent<RigidBodyComponent>(glm::vec2(0.0, 0.0));
     truck.addComponent<SpriteComponent>("truck-image", 32, 32, 2);
     truck.addComponent<BoxColliderComponent>(32, 32, glm::vec2(0, 0));
-    truck.addComponent<ProjectileEmitterComponent>(glm::vec2(0.0, 100.0), 2000, 5000, 0, false);
+    truck.addComponent<ProjectileEmitterComponent>(glm::vec2(0.0, 100.0), 2000, 5000, 10, false);
     truck.addComponent<HealthComponent>(100);
 }
 
