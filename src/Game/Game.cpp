@@ -28,6 +28,7 @@
 #include "../Components/TextLabelComponent.h"
 #include "../Systems/RenderTextSystem.h"
 #include "../Systems/RenderHealthBarSystem.h"
+#include "../Systems/RenderGuiSystem.h"
 #include <imgui.h>
 #include <imgui_impl_sdl.h>
 #include <imgui_impl_sdlrenderer.h>
@@ -151,6 +152,7 @@ void Game::LoadLevel(int level) {
     registry->AddSystem<ProjectileLifecycleSystem>();
     registry->AddSystem<RenderTextSystem>();
     registry->AddSystem<RenderHealthBarSystem>();
+    registry->AddSystem<RenderGuiSystem>();
 
     assetStore->AddTexture(renderer, "radar-image", "./assets/images/radar.png");
     assetStore->AddTexture(renderer, "chopper-image", "./assets/images/chopper-spritesheet.png");
@@ -274,14 +276,7 @@ void Game::Render() {
     if (isDebugging) {
         registry->GetSystem<RenderColliderSystem>().Update(renderer, camera);
 
-        ImGui_ImplSDLRenderer_NewFrame();
-        ImGui_ImplSDL2_NewFrame(window);
-        ImGui::NewFrame();
-
-        ImGui::ShowDemoWindow();
-
-        ImGui::Render();
-        ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
+        registry->GetSystem<RenderGuiSystem>().Update(window);
     }
 
     SDL_RenderPresent(renderer);
