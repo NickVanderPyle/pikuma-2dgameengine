@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
+include(FetchContent)
 project(2dgameengine)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -44,6 +45,9 @@ include_directories(${GLM_INCLUDE_DIRS})
 find_package(Lua REQUIRED)
 target_link_libraries(${PROJECT_NAME} ${LUA_LIBRARIES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${LUA_INCLUDE_DIR})
+
+find_package(imgui REQUIRED)
+target_link_libraries(${PROJECT_NAME} imgui)
 
 add_custom_target(copy_assets
         COMMAND ${CMAKE_COMMAND} -E copy_directory
