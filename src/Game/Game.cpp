@@ -158,6 +158,7 @@ void Game::LoadLevel(int level) {
     assetStore->AddTexture(renderer, "chopper-image", "./assets/images/chopper-spritesheet.png");
     assetStore->AddTexture(renderer, "tank-image", "./assets/images/tank-panther-right.png");
     assetStore->AddTexture(renderer, "truck-image", "./assets/images/truck-ford-right.png");
+    assetStore->AddTexture(renderer, "tree-image", "./assets/images/tree.png");
     assetStore->AddTexture(renderer, "tilemap-image", "./assets/tilemaps/jungle.png");
     assetStore->AddTexture(renderer, "bullet-image", "./assets/images/bullet.png");
     assetStore->AddFont("charriot-font-20", "./assets/fonts/charriot.ttf", 20);
@@ -217,10 +218,9 @@ void Game::LoadLevel(int level) {
     Entity tank = registry->CreateEntity();
     tank.Group("enemies");
     tank.addComponent<TransformComponent>(glm::vec2(500.0, 500.0), glm::vec2(1.0, 1.0), 0.0);
-    tank.addComponent<RigidBodyComponent>(glm::vec2(0.0, 0.0));
+    tank.addComponent<RigidBodyComponent>(glm::vec2(20.0, 0.0));
     tank.addComponent<SpriteComponent>("tank-image", 32, 32, 1);
     tank.addComponent<BoxColliderComponent>(25, 18, glm::vec2(5, 7));
-    tank.addComponent<ProjectileEmitterComponent>(glm::vec2(100.0, 0.0), 3000, 5000, 10, false);
     tank.addComponent<HealthComponent>(100);
 
     Entity truck = registry->CreateEntity();
@@ -231,6 +231,18 @@ void Game::LoadLevel(int level) {
     truck.addComponent<BoxColliderComponent>(25, 20, glm::vec2(5, 5));
     truck.addComponent<ProjectileEmitterComponent>(glm::vec2(0.0, -100.0), 2000, 5000, 10, false);
     truck.addComponent<HealthComponent>(100);
+
+    Entity treeA = registry->CreateEntity();
+    treeA.Group("obstacles");
+    treeA.addComponent<TransformComponent>(glm::vec2(600.0, 495.0), glm::vec2(1.0, 1.0), 0.0);
+    treeA.addComponent<SpriteComponent>("tree-image", 16, 32, 2);
+    treeA.addComponent<BoxColliderComponent>(16, 32);
+
+    Entity treeB = registry->CreateEntity();
+    treeB.Group("obstacles");
+    treeB.addComponent<TransformComponent>(glm::vec2(400.0, 495.0), glm::vec2(1.0, 1.0), 0.0);
+    treeB.addComponent<SpriteComponent>("tree-image", 16, 32, 2);
+    treeB.addComponent<BoxColliderComponent>(16, 32);
 
     Entity label = registry->CreateEntity();
     SDL_Color green = {0, 255, 0};
@@ -252,6 +264,7 @@ void Game::Update() {
     millisecsPreviousFrame = SDL_GetTicks();
 
     eventBus->Reset();
+    registry->GetSystem<MovementSystem>().SubscribeToEvents(eventBus);
     registry->GetSystem<DamageSystem>().SubscribeToEvents(eventBus);
     registry->GetSystem<KeyboardControlSystem>().SubscribeToEvents(eventBus);
     registry->GetSystem<ProjectileEmitSystem>().SubscribeToEvents(eventBus);
