@@ -52,6 +52,10 @@ Game::~Game() {
 }
 
 void Game::Initialize() {
+#ifdef __APPLE__
+    SDL_SetHint(SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES, "1");
+#endif // __APPLE__
+
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         Logger::Err("Error SDL_Init");
         return;
@@ -95,7 +99,7 @@ void Game::Initialize() {
     camera.w = windowWidth;
     camera.h = windowHeight;
 
-    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 
     isRunning = true;
 }
