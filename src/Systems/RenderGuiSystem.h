@@ -22,7 +22,7 @@ public:
         ImGui_ImplSDL2_NewFrame(window);
         ImGui::NewFrame();
 
-        if (ImGui::Begin("Spawn enemies",NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+        if (ImGui::Begin("Spawn enemies", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
             static int posX = 0;
             static int posY = 0;
             static int scaleX = 1;
