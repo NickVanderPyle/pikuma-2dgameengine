@@ -79,7 +79,7 @@ void Game::Initialize() {
         return;
     }
 
-    renderer = SDL_CreateRenderer(window, -1, 0);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!renderer) {
         Logger::Err("Error SDL_CreateRenderer");
         return;
