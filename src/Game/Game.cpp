@@ -95,7 +95,7 @@ void Game::Initialize() {
     camera.w = windowWidth;
     camera.h = windowHeight;
 
-    //SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
     isRunning = true;
 }
@@ -114,7 +114,7 @@ void Game::ProcessInput() {
     SDL_Event sdlEvent;
     while (SDL_PollEvent(&sdlEvent)) {
         ImGui_ImplSDL2_ProcessEvent(&sdlEvent);
-        ImGuiIO& io = ImGui::GetIO();
+        ImGuiIO &io = ImGui::GetIO();
 
         int mouseX, mouseY;
         const int buttons = SDL_GetMouseState(&mouseX, &mouseY);
@@ -276,7 +276,7 @@ void Game::Render() {
     if (isDebugging) {
         registry->GetSystem<RenderColliderSystem>().Update(renderer, camera);
 
-        registry->GetSystem<RenderGuiSystem>().Update(window);
+        registry->GetSystem<RenderGuiSystem>().Update(window, registry, camera);
     }
 
     SDL_RenderPresent(renderer);
