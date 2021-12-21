@@ -20,10 +20,20 @@ public:
         };
         std::vector<RenderableEntity> renderableEntities;
         for (auto entity: GetSystemEntities()) {
-            RenderableEntity renderableEntity;
-            renderableEntity.spriteComponent = entity.getComponent<SpriteComponent>();
-            renderableEntity.transformComponent = entity.getComponent<TransformComponent>();
-            renderableEntities.emplace_back(renderableEntity);
+            const auto sprite = entity.getComponent<SpriteComponent>();
+            const auto transform = entity.getComponent<TransformComponent>();
+
+            const auto isOutsideCameraView = !(
+                    transform.position.x + (transform.scale.x * sprite.width) < camera.x ||
+                    transform.position.x > camera.x + camera.w ||
+                    transform.position.y + (transform.scale.y * sprite.height) < camera.y ||
+                    transform.position.y > camera.y + camera.h);
+            if (sprite.isFixed || isOutsideCameraView) {
+                renderableEntities.emplace_back(RenderableEntity{
+                        .spriteComponent = sprite,
+                        .transformComponent = transform
+                });
+            }
         }
         std::sort(
                 renderableEntities.begin(),
