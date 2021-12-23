@@ -49,6 +49,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${LUA_INCLUDE_DIR})
 find_package(imgui REQUIRED)
 target_link_libraries(${PROJECT_NAME} imgui)
 
+find_package(sol2 REQUIRED)
+#target_link_libraries(${PROJECT_NAME} sol2)
+
 add_custom_target(copy_assets
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_SOURCE_DIR}/assets/
