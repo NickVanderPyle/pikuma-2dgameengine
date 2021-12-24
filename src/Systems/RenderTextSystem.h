@@ -1,7 +1,5 @@
 #pragma once
 
-#pragma once
-
 #include <SDL2/SDL.h>
 #include "../Components/TextLabelComponent.h"
 #include "../ECS/System.h"

@@ -5,6 +5,7 @@
 #include "../Components/TransformComponent.h"
 #include "../Components/RigidBodyComponent.h"
 #include "../Events/CollisionEvent.h"
+#include "../Components/SpriteComponent.h"
 
 class MovementSystem : public System {
 public:
