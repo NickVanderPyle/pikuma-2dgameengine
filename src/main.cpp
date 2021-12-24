@@ -8,8 +8,8 @@ void TestLua() {
 
     lua.script_file("./assets/scripts/myscript.lua");
 
-    int some_variableInCpp = lua["some_variable"];
-    std::cout << "The value of some_variable in c++ is " << some_variableInCpp << std::endl;
+    double someVariableInCpp = lua["some_variable"];
+    std::cout << "The value of some_variable in c++ is " << someVariableInCpp << std::endl;
 }
 
 int main(int argc, char *argv[]) {
